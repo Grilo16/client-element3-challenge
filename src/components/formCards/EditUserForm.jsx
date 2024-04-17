@@ -1,49 +1,37 @@
 import { useState } from "react"
 import { Form, Input } from "../layout"
-import { selectUserDateOfBirth, selectUserEmail, selectUserFirstName, selectUserLastName, setUserData, useEditUserMutation } from "../../features"
-import { useDispatch, useSelector } from "react-redux"
+import { useMyAccount } from "../../hooks"
 
 export const EditUserForm = () => {
-  const selectedFirstName = useSelector(selectUserFirstName)
-  const selectedLastName = useSelector(selectUserLastName)
-    const [firstName, setFirstName] = useState(selectedFirstName)
-    const [lastName, setLastName] = useState(selectedLastName)
-    const [password, setPassword] = useState("")
-    const [editUser] = useEditUserMutation()
+  
+  const {myAccount, handleEditMyAccount } = useMyAccount()
 
-    const dispatch = useDispatch()
-    const handleEditUser = async (e) => {
-      e.preventDefault()
-      const data = {
-          firstName: firstName,
-          lastName: lastName,
-          password: password,
-      }
-      const edits = Object.fromEntries(Object.entries(data).filter(([key, value]) => value))
+  const [editData, setEditData] = useState({
+    firstName: myAccount?.firstName  ,
+    lastName: myAccount?.lastName ,
+    password:"", 
+  })
+  
+  const setFirstName = (value) => setEditData(current => ({...current, firstName: value }))
+  const setLastName = (value) => setEditData(current => ({...current, lastName: value }))
+  const setPassword = (value) => setEditData(current => ({...current, password: value }))
 
-      const user = await editUser({edits: edits}).unwrap()
-      if (user) {
-        dispatch(setUserData(user))
-
-      }
-
-  }
     return (
         <Form>
         <div className="row">
           <div className="col-md-6">
-            <Input id="first-name" label="First Name" type="text" value={firstName} onChange={setFirstName}  autoComplete="first-name" />
+            <Input id="first-name" label="First Name" type="text" value={editData.firstName} onChange={setFirstName}  autoComplete="first-name" />
           </div>
           <div className="col-md-6">
-            <Input id="last-name" label="Last Name" type="text" value={lastName} onChange={setLastName} autoComplete="last-name"/>
+            <Input id="last-name" label="Last Name" type="text" value={editData.lastName} onChange={setLastName} autoComplete="last-name"/>
           </div>
         </div>
         <div className="row">
           <div className="col">
-            <Input id="user-password" label="Password" type="password" value={password} onChange={setPassword} autoComplete="current-password"/>
+            <Input id="user-password" label="Password" type="password" value={editData.password} onChange={setPassword} autoComplete="current-password"/>
           </div>
         </div>
-            <button onClick={handleEditUser} type="submit" className="btn btn-primary text-white  w-100 " data-bs-dismiss="modal"><strong>Save Edits</strong></button>
+            <button onClick={(e) => handleEditMyAccount(e, editData)} type="submit" className="btn btn-primary text-white  w-100 " data-bs-dismiss="modal"><strong>Save Edits</strong></button>
       </Form>
     )
 }

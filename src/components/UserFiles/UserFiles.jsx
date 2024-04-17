@@ -1,10 +1,12 @@
 import { useGetUserFilesQuery } from "../../features/api/userFilesApiSlice"
+import { useMyAccount } from "../../hooks"
 import { UserFileCard } from "./UserFileCard"
 
 export const UserFiles = () => {
     
     const {data: userFiles} = useGetUserFilesQuery() 
     const files = userFiles?.map((file, index) => <UserFileCard key={index} {...file}/>)
+    const {myAccount} = useMyAccount()
 
 
     return (

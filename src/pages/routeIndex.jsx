@@ -1,5 +1,4 @@
 import * as Pages from ".";
-import { getTokenFromCookie } from "../features";
 
 export const routeIndex = [
     {

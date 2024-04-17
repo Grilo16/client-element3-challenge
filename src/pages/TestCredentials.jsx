@@ -52,7 +52,7 @@ export const TestCredentials = () => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'filename.pdf'; // Set the desired filename here
+        a.download = 'filename.pdf';    
         document.body.appendChild(a);
         a.click();
         URL.revokeObjectURL(url);

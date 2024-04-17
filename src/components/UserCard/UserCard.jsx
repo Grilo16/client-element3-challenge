@@ -1,8 +1,5 @@
-import { useDeleteUserMutation, useGetUsersQuery } from "../../features/api";
 
-export const UserCard = ({id, firstName, lastName, email, password, dateOfBirth}) => {
-    const [deleteUser, {data: result}] = useDeleteUserMutation()
-
+export const UserCard = ({firstName, lastName, email}) => {
 
     return (
         <div className="col col-2 mb-4 ">
