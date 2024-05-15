@@ -4,7 +4,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         login: builder.mutation({
             query: credentials => ({
-                url: "/login",
+                url: "/realms/Element3/auth/login",
                 method: "POST",
                 body: {...credentials}
             })
@@ -16,6 +16,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: {...authToken}
             })
+        }),
+        createAccount: builder.mutation({
+            query: user => ({
+                url: "/create-new-account",
+                method: "POST",
+                body: {...user}
+            })
         })
     })
 })
@@ -25,4 +32,5 @@ export const authApiSlice = apiSlice.injectEndpoints({
 export const {
     useLoginMutation,
     useRefreshMutation,
+    useCreateAccountMutation
 } = authApiSlice

@@ -12,10 +12,7 @@ export const getTokenFromCookie = () => {
 }
 
 export const setCookieJWTToken = (tokenData) => {
-      const token = tokenData.token;
-      const expireDate = new Date(tokenData.expire);
-      expireDate.setHours(expireDate.getHours() + 1);
-      document.cookie = `token=${token}; expires=${expireDate.toUTCString()}; path=/`;
+      document.cookie = `token=${tokenData}; expires=session; path=/`;
 }
 
 
@@ -23,9 +20,9 @@ const baseQuery = fetchBaseQuery({
     baseUrl: `${FetchUrl}`,
     credentials: "include",
     prepareHeaders: (headers) => {
-        const access = getTokenFromCookie()
-        if(access){
-            headers.set("Authorization", `Bearer ${access}`)
+        const token = getTokenFromCookie()
+        if(token){
+            headers.set("Authorization", `Bearer ${token}`)
         }  
         return headers 
     },
@@ -35,8 +32,8 @@ export const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions)
     if (result?.error?.status === 401){
         const refreshResult = await baseQuery({url: "/refresh", method: "POST"}, api, extraOptions)
-        if(refreshResult?.data?.token){
-            setCookieJWTToken(refreshResult?.data)
+        if(refreshResult?.token){
+            setCookieJWTToken(refreshResult)
             result = await baseQuery(args, api, extraOptions)
         }else{
             Cookies.remove("token")
@@ -46,7 +43,7 @@ export const baseQueryWithReauth = async (args, api, extraOptions) => {
     return result
 }
 export const apiSlice = createApi({
-    baseQuery: baseQueryWithReauth,
+    baseQuery: baseQuery,
     endpoints: builder => ({}),
 }) 
 

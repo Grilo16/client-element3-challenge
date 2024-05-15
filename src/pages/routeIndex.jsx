@@ -18,5 +18,15 @@ export const routeIndex = [
         path: "/login",
         label: "Log in",
     },
+    {
+        element: <Pages.Admin/>,
+        path: "/admin",
+        label: "admin page",
+    },
+    {
+        element: <Pages.BulkCreateUsers/>,
+        path: "/admin/bulk-create-users",
+        label: "Bulk create users",
+    },
 
 ]

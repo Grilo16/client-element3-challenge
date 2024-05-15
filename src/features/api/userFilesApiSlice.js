@@ -4,20 +4,20 @@ const credentialsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         
         getUserFile: builder.query({
-            query: (userFileId) => `/auth/files/${userFileId}`, 
+            query: (userFileId) => `realms/Element3/auth/files/${userFileId}`, 
             providesTags: ["files"],
             keepUnusedDataFor: 5,   
         }),
 
         getUserFiles: builder.query({
-            query: () => "/auth/files", 
+            query: () => "realms/Element3/auth/files", 
             providesTags: ["files"],
             keepUnusedDataFor: 5,   
         }),
 
         uploadFile: builder.mutation({
             query: (file) => ({
-                url: "/auth/files",
+                url: "realms/Element3/auth/files",
                 method: "POST",
                 body: file
             }),
@@ -27,7 +27,7 @@ const credentialsApiSlice = apiSlice.injectEndpoints({
         
         deleteUserFile: builder.mutation({
             query: (userFileId) => ({
-                url : `/auth/files/${userFileId}`, 
+                url : `realms/Element3/auth/files/${userFileId}`, 
                 method: "DELETE",
             }), 
             invalidatesTags: ["files"],

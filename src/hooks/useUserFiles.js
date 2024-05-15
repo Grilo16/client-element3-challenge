@@ -6,25 +6,13 @@ export const useUserFiles = () => {
     const token = getTokenFromCookie()
 
     const downloadByIdWithReauth = async (fileId) => {
-        const url = `http://localhost:8080/auth/files/${fileId}`
+        const url = `http://localhost:8080/realms/Element3/auth/files/${fileId}`
         const fetchOptions = {
             headers: {
                 Authorization: `Bearer ${getTokenFromCookie()}`
             }
         };
             const response = await fetch(url, fetchOptions);
-            if (response.status === 401){
-                const refreshResult = await fetch('http://localhost:8080/refresh', {method: "POST", ...fetchOptions});
-                    if (refreshResult.ok) {
-                        setCookieJWTToken(data)
-                        const refreshOptions = {
-                            headers: {
-                                Authorization: `Bearer ${getTokenFromCookie()}`
-                            }
-                        };
-                        return await fetch(url, refreshOptions);
-                    }
-            }
             return response
     };
 

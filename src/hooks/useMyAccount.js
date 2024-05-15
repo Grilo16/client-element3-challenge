@@ -59,13 +59,13 @@ export const useMyAccount = () => {
   
   const handleLogin = async (e, credentials) => {
       e.preventDefault();
-      const result = await login(credentials).unwrap();
-      if (result) {
-          setCookieJWTToken(result);
+      // const result = await login(credentials).unwrap();
+      // if (result) {
+      //     setCookieJWTToken(result);
           navigate("/");
-    } else {
-        console.log("login failed");
-    }
+    // } else {
+        // console.log("login failed");
+    // }
 };
     const handleDeleteMyAccount = async (e) => {
     await deleteMyAccount();

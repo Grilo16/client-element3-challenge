@@ -4,7 +4,7 @@ const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
 
         getUsers: builder.query({
-            query: () => "/auth/users", 
+            query: () => "realms/Element3/auth/users", 
             providesTags: ["users"],
             keepUnusedDataFor: 5,   
         }),

@@ -1,4 +1,4 @@
-export const Input = ({id, type, value, onChange, label, className, inputStyle, ...props}) => {
+export const Input = ({id, type, name, value, onChange, label, className, inputStyle, ...props}) => {
     return (
         <div className={className? className : "mb-3"} >
             <label htmlFor={id} className="form-label">
@@ -6,10 +6,12 @@ export const Input = ({id, type, value, onChange, label, className, inputStyle, 
             </label>
             <input
             type={type}
+            name={name}
             className="form-control"
             style={inputStyle}
             id={id}
             value={value ? value : ""}
+            // onChange={onChange}
             onChange={(e) => onChange(e.target.value)}
             {...props}
             />

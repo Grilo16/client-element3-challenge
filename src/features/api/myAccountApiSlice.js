@@ -4,7 +4,7 @@ const myAccountApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         
         getMyAccount: builder.query({
-            query: () => `/auth/my-account`, 
+            query: () => `realms/Element3/auth/my-account`, 
             providesTags: ["users"],
             keepUnusedDataFor: 5,   
         }
@@ -22,7 +22,7 @@ const myAccountApiSlice = apiSlice.injectEndpoints({
         
         editMyAccount: builder.mutation({
             query: ({edits}) => ({
-                url : `/auth/my-account`, 
+                url : `realms/Element3/auth/my-account`, 
                 method: "PATCH",
                 body: {...edits},
             }), 
@@ -32,7 +32,7 @@ const myAccountApiSlice = apiSlice.injectEndpoints({
         
         deleteMyAccount: builder.mutation({
             query: () => ({
-                url : `/auth/my-account`, 
+                url : `realms/Element3/auth/my-account`, 
                 method: "DELETE",
             }), 
             invalidatesTags: ["users"],
